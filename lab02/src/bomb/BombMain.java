@@ -18,9 +18,10 @@ public class BombMain {
         }
         if (phase >= 2) {
             String pwd = new String();
-            for(int i = 0; i < 2000; i++) {
+            for(int i = 0; i < 1337; i++) {
                 pwd += "hint ";
             }
+            pwd += "-81201430";
             b.phase2(pwd);
         }
     }
