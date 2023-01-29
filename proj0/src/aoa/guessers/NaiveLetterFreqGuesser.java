@@ -1,8 +1,8 @@
 package aoa.guessers;
 
 import aoa.utils.FileUtils;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 
 public class NaiveLetterFreqGuesser implements Guesser {
     private final List<String> words;
@@ -20,15 +20,46 @@ public class NaiveLetterFreqGuesser implements Guesser {
     /** Returns a map from a given letter to its frequency across all words.
      *  This task is similar to something you did in hw0b! */
     public Map<Character, Integer> getFrequencyMap() {
-        // TODO: Fill in this method.
-        return null;
+        Map<Character, Integer> freqMap = new TreeMap<Character, Integer>();
+        for(int i = 0; i < words.size(); i++) {
+            String curr_word = words.get(i);
+            for(int j = 0; j < curr_word.length(); j++) {
+                if (!(freqMap.containsKey(curr_word.charAt(j)))) {
+                    freqMap.put(curr_word.charAt(j), 0);
+                }
+                int oldCount = freqMap.get(curr_word.charAt(j));
+                freqMap.replace(curr_word.charAt(j), oldCount, oldCount + 1);
+            }
+        }
+        return freqMap;
     }
 
     /** Returns the most common letter in WORDS that has not yet been guessed
      *  (and therefore isn't present in GUESSES). */
     public char getGuess(List<Character> guesses) {
-        // TODO: Fill in this method.
-        return '?';
+        /** call getFrequencyMap
+         *remove guesses from map
+         * find and return most frequent
+         */
+
+
+        Map<Character, Integer> frequencies = getFrequencyMap();
+        for(int i = 0; i < guesses.size(); i++) {
+            if(frequencies.containsKey(guesses.get(i))) {
+                frequencies.remove(guesses.get(i));
+            }
+        }
+        Set<Character> keyset = frequencies.keySet();
+        List<Character> keylist = new ArrayList<>(keyset);
+        char commonKey = ' ';
+        int highestFreq = 0;
+        for(int i = 0; i < keylist.size(); i++) {
+            if(frequencies.get(keylist.get(i)) > highestFreq) {
+                highestFreq = frequencies.get(keylist.get(i));
+                commonKey = keylist.get(i);
+            }
+        }
+        return commonKey;
     }
 
     public static void main(String[] args) {
