@@ -12,8 +12,8 @@ public class RandomChooser implements Chooser {
     public RandomChooser(int wordLength, String dictionaryFile) {
         // TODO: Fill in/change this constructor.
         //chosenWord = "";
-        //throw exception if input length < 1
         pattern = "";
+        //throw exception if input length < 1
         if(wordLength < 1)
             throw new IllegalArgumentException();
         //read words of wordLength from dictionary
