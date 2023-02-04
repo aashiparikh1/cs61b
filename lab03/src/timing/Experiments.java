@@ -60,8 +60,20 @@ public class Experiments {
         List<Integer> opCounts = new ArrayList<>();
 
         // TODO: YOUR CODE HERE
+        int ops = 100;
 
-        return null;
+        for (int N = 1000; N <= 128000; N *= 2) {
+            Ns.add(N);
+            opCounts.add(N);
+            Stopwatch sw = new Stopwatch();
+            AList<Integer> L = new AList<Integer>();
+            for (int j = 0; j < N; j++) {
+                L.addLast(j);
+            }
+            times.add(sw.elapsedTime());
+        }
+
+        return new TimingData(Ns, times, opCounts);
     }
 
 
@@ -72,15 +84,31 @@ public class Experiments {
 
         // TODO: YOUR CODE HERE
 
-        return null;
+        int ops = 10000;
+
+        for (int N = 1000; N <= 128000; N *= 2) {
+            Ns.add(N);
+            opCounts.add(ops);
+            SLList<Integer> SL = new SLList<Integer>();
+            for (int j = 0; j < N; j++) {
+                SL.addLast(j);
+            }
+            Stopwatch sw = new Stopwatch();
+            for (int k = 0; k < ops; k++) {
+                SL.getLast();
+            }
+            times.add(sw.elapsedTime());
+        }
+
+        return new TimingData(Ns, times, opCounts);
 
     }
 
     public static void main(String[] args) {
         // TODO: Modify the following line to change the experiment you're running
-        TimingData td = exampleFibonacciExperiment();
+        TimingData td = timeAListConstruction();
         // Modify this line to make the chart title make sense
-        String title = "Naive Recursive Fibonacci";
+        String title = "AList slow";
 
         // Convert "times" (in seconds) and "opCounts" to nanoseconds / op
         List<Double> timesUsPerOp = new ArrayList<>();
