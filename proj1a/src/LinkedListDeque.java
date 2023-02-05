@@ -24,6 +24,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         lld.addLast(2);
         lld.addLast(3);
         lld.addLast(5);
+        System.out.println(lld.removeLast().toString());
         System.out.println(lld.toList());
     }
 
@@ -94,7 +95,21 @@ public class LinkedListDeque<T> implements Deque<T> {
      */
     @Override
     public T removeFirst() {
-        return null;
+        if (size() == 0)
+            return null;
+        Node n = sentinel.next;
+        T itemCopy = n.item;
+        n.item = null;
+        if (size() == 1) {
+            sentinel.next = sentinel;
+            sentinel.prev = sentinel;
+            size = 0;
+            return itemCopy;
+        }
+        sentinel.next = n.next;
+        n.next = sentinel;
+        size--;
+        return itemCopy;
     }
 
     /**
@@ -102,7 +117,26 @@ public class LinkedListDeque<T> implements Deque<T> {
      */
     @Override
     public T removeLast() {
-        return null;
+        if (size() == 0)
+            return null;
+        Node n = sentinel.next;
+        for (int i = 0; i < size() - 1; i++) {
+            n = n.next;
+        }
+        T itemCopy = n.item;
+        n.item = null;
+        if (size() == 1) {
+            sentinel.next = sentinel;
+            sentinel.prev = sentinel;
+            size = 0;
+            return itemCopy;
+        }
+        sentinel.prev = n.prev;
+        n.prev.next = sentinel;
+        n.prev = null;
+        n.next = null;
+        size--;
+        return itemCopy;
     }
 
     /**
@@ -129,6 +163,14 @@ public class LinkedListDeque<T> implements Deque<T> {
      */
     @Override
     public T getRecursive(int index) {
-        return null;
+        if (index > size() || index < 0 || size() == 0)
+            return null;
+        return (T) getRecursive(sentinel.next, index);
+    }
+
+    public T getRecursive(Node n, int index) {
+        if (index == 0)
+            return n.item;
+        return getRecursive(n.next, index - 1);
     }
 }

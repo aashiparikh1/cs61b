@@ -146,4 +146,79 @@ public class LinkedListDequeTest {
         assertThat(lld1.get(-5)).isNull();
         assertThat(lld1.get(0)).isNull();
     }
+
+    @Test
+    public void getRecursiveOutOfBoundsTest() {
+        Deque<Integer> lld1 = new LinkedListDeque<>();
+        lld1.addFirst(1);
+        lld1.addFirst(2);
+        lld1.addFirst(3);
+        assertThat(lld1.getRecursive(10)).isNull();
+        assertThat(lld1.getRecursive(-5)).isNull();
+    }
+
+    @Test
+    public void getRecursiveCorrectTest() {
+        Deque<Integer> lld1 = new LinkedListDeque<>();
+        lld1.addFirst(1);
+        lld1.addFirst(2);
+        lld1.addFirst(3);
+        assertThat(lld1.getRecursive(0)).isEqualTo(3);
+        assertThat(lld1.getRecursive(1)).isEqualTo(2);
+        assertThat(lld1.getRecursive(2)).isEqualTo(1);
+    }
+
+    @Test
+    public void getRecursiveEmptyListTest() {
+        Deque<Integer> lld1 = new LinkedListDeque<>();
+        assertThat(lld1.getRecursive(10)).isNull();
+        assertThat(lld1.getRecursive(-5)).isNull();
+        assertThat(lld1.getRecursive(0)).isNull();
+    }
+
+    @Test
+    public void removeFirstEmptyListTest() {
+        Deque<Integer> lld1 = new LinkedListDeque<>();
+        assertThat(lld1.removeFirst()).isNull();
+    }
+
+    @Test
+    public void removeFirstSizeOneTest() {
+        Deque<Integer> lld1 = new LinkedListDeque<>();
+        lld1.addFirst(1);
+        assertThat(lld1.removeFirst()).isEqualTo(1);
+        assertThat(lld1.size()).isEqualTo(0);
+    }
+
+    @Test
+    public void removeFirstSizeOverOneTest() {
+        Deque<Integer> lld1 = new LinkedListDeque<>();
+        lld1.addFirst(1);
+        lld1.addFirst(2);
+        assertThat(lld1.removeFirst()).isEqualTo(2);
+        assertThat(lld1.size()).isEqualTo(1);
+    }
+
+    @Test
+    public void removeLastEmptyListTest() {
+        Deque<Integer> lld1 = new LinkedListDeque<>();
+        assertThat(lld1.removeLast()).isNull();
+    }
+
+    @Test
+    public void removeLastSizeOneTest() {
+        Deque<Integer> lld1 = new LinkedListDeque<>();
+        lld1.addFirst(1);
+        assertThat(lld1.removeLast()).isEqualTo(1);
+        assertThat(lld1.size()).isEqualTo(0);
+    }
+
+    @Test
+    public void removeLastSizeOverOneTest() {
+        Deque<Integer> lld1 = new LinkedListDeque<>();
+        lld1.addFirst(1);
+        lld1.addFirst(2);
+        assertThat(lld1.removeLast()).isEqualTo(1);
+        assertThat(lld1.size()).isEqualTo(1);
+    }
 }
