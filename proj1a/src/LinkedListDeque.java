@@ -21,9 +21,12 @@ public class LinkedListDeque<T> implements Deque<T> {
 
     public static void main(String[] args) {
         Deque<Integer> lld = new LinkedListDeque<>();
-        lld.addLast(2);
-        lld.addLast(3);
-        lld.addLast(5);
+        for (int i = 0; i < 100; i++) {
+            lld.addLast(i);
+        }
+        for (int i = 0; i < 100; i++) {
+            lld.removeLast();
+        }
         System.out.println(lld.removeLast().toString());
         System.out.println(lld.toList());
     }
@@ -131,22 +134,13 @@ public class LinkedListDeque<T> implements Deque<T> {
         if (size() == 0) {
             return null;
         }
-        Node n = sentinel.next;
-        for (int i = 0; i < size() - 1; i++) {
-            n = n.next;
-        }
+        Node n = sentinel.prev;
         T itemCopy = n.item;
-        n.item = null;
-        if (size() == 1) {
-            sentinel.next = sentinel;
-            sentinel.prev = sentinel;
-            size = 0;
-            return itemCopy;
-        }
         sentinel.prev = n.prev;
         n.prev.next = sentinel;
         n.prev = null;
         n.next = null;
+        n.item = null;
         size--;
         return itemCopy;
     }

@@ -1,3 +1,4 @@
+import edu.princeton.cs.algs4.Stopwatch;
 import jh61b.utils.Reflection;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -220,5 +221,62 @@ public class LinkedListDequeTest {
         lld1.addFirst(2);
         assertThat(lld1.removeLast()).isEqualTo(1);
         assertThat(lld1.size()).isEqualTo(1);
+    }
+
+    @Test
+    public void removeLastSizeFixedTimeTest() {
+        Deque<Integer> lld1 = new LinkedListDeque<>();
+        Deque<Integer> lld2 = new LinkedListDeque<>();
+        for (int i = 0; i < 1000000; i++) {
+            lld1.addFirst(i);
+        }
+        for(int i = 0; i < 100; i++) {
+            lld2.addFirst(i);
+        }
+        Stopwatch sw = new Stopwatch();
+        assertThat(lld1.removeLast()).isEqualTo(0);
+        double largeListRemoveTime = sw.elapsedTime();
+        Stopwatch sw2 = new Stopwatch();
+        assertThat(lld2.removeLast()).isEqualTo(0);
+        double smallListRemoveTime = sw2.elapsedTime();
+        assertThat(largeListRemoveTime - smallListRemoveTime).isAtMost(1);
+    }
+
+    @Test
+    public void add_first_after_remove_to_empty() {
+        Deque<Integer> lld1 = new LinkedListDeque<>();
+        lld1.addFirst(1);
+        lld1.addFirst(2);
+        lld1.removeFirst();
+        lld1.removeLast();
+        assertThat(lld1.isEmpty()).isTrue();
+        assertThat(lld1.size()).isEqualTo(0);
+    }
+
+    @Test
+    public void add_first_after_remove_to_empty2() {
+        Deque<Integer> lld1 = new LinkedListDeque<>();
+        lld1.addFirst(1);
+        lld1.addFirst(2);
+        lld1.removeFirst();
+        lld1.removeLast();
+        lld1.addFirst(3);
+        assertThat(lld1.isEmpty()).isFalse();
+        assertThat(lld1.size()).isEqualTo(1);
+    }
+    @Test
+    public void removeFirst() {
+        Deque<Integer> lld1 = new LinkedListDeque<>();
+        lld1.addFirst(1);
+        lld1.addFirst(2);
+        lld1.addFirst(3);
+        assertThat(lld1.removeFirst()).isEqualTo(3);
+        assertThat(lld1.size()).isEqualTo(2);
+    }
+
+    @Test
+    public void toListEmptyTest() {
+        Deque<Integer> lld1 = new LinkedListDeque<>();
+        assertThat(lld1.toList()).isEmpty();
     }
 }
