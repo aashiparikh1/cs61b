@@ -71,4 +71,79 @@ public class LinkedListDequeTest {
      }
 
     // Below, you'll write your own tests for LinkedListDeque.
+    @Test
+    public void isEmptyEmptyCaseTest() {
+        Deque<Integer> lld1 = new LinkedListDeque<>();
+        assertThat(lld1.isEmpty()).isTrue();
+    }
+
+    @Test
+    public void isEmptyNonEmptyCaseTest() {
+        Deque<Integer> lld1 = new LinkedListDeque<>();
+        lld1.addLast(0);
+        lld1.addLast(1);
+        assertThat(lld1.isEmpty()).isFalse();
+    }
+
+    @Test
+    public void sizeZeroEmptyCaseTest() {
+        Deque<Integer> lld1 = new LinkedListDeque<>();
+        assertThat(lld1.size()).isEqualTo(0);
+    }
+
+    @Test
+    public void correctSizeNonzeroTest() {
+        Deque<Integer> lld1 = new LinkedListDeque<>();
+        lld1.addFirst(1);
+        lld1.addFirst(2);
+        lld1.addFirst(3);
+        assertThat(lld1.size()).isEqualTo(3);
+    }
+
+    @Test
+    public void isEmptyAndSizeEmptyCaseTest() {
+        Deque<Integer> lld1 = new LinkedListDeque<>();
+        assertThat(lld1.isEmpty()).isTrue();
+        assertThat(lld1.size()).isEqualTo(0);
+    }
+
+    @Test
+    public void isEmptyAndSizeNonEmptyCaseTest() {
+        Deque<Integer> lld1 = new LinkedListDeque<>();
+        lld1.addFirst(1);
+        lld1.addFirst(2);
+        lld1.addFirst(3);
+        assertThat(lld1.isEmpty()).isFalse();
+        assertThat(lld1.size()).isNotEqualTo(0);
+        assertThat(lld1.size()).isEqualTo(3);
+    }
+
+    @Test
+    public void getOutOfBoundsTest() {
+        Deque<Integer> lld1 = new LinkedListDeque<>();
+        lld1.addFirst(1);
+        lld1.addFirst(2);
+        lld1.addFirst(3);
+        assertThat(lld1.get(10)).isNull();
+        assertThat(lld1.get(-5)).isNull();
+    }
+
+    @Test
+    public void getCorrectTest() {
+        Deque<Integer> lld1 = new LinkedListDeque<>();
+        lld1.addFirst(1);
+        lld1.addFirst(2);
+        lld1.addFirst(3);
+        assertThat(lld1.get(0)).isEqualTo(3);
+        assertThat(lld1.get(1)).isEqualTo(2);
+        assertThat(lld1.get(2)).isEqualTo(1);
+    }
+
+    @Test
+    public void getEmptyListTest() {
+        Deque<Integer> lld1 = new LinkedListDeque<>();
+        assertThat(lld1.get(10)).isNull();
+        assertThat(lld1.get(-5)).isNull();
+        assertThat(lld1.get(0)).isNull();
+    }
 }
