@@ -72,7 +72,9 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
     /**
-     * @return
+     * This method returns a boolean indicating whether the
+     * LinkedListDeque is empty or not.
+     * @return boolean
      */
     @Override
     public boolean isEmpty() {
@@ -83,7 +85,9 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
     /**
-     * @return
+     * This method returns the size of
+     * the LinkedListDeque.
+     * @return int
      */
     @Override
     public int size() {
@@ -91,12 +95,16 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
     /**
-     * @return
+     * This method removes the first element
+     * in the LinkedListDeque and returns
+     * that element.
+     * @return T
      */
     @Override
     public T removeFirst() {
-        if (size() == 0)
+        if (size() == 0) {
             return null;
+        }
         Node n = sentinel.next;
         T itemCopy = n.item;
         n.item = null;
@@ -113,12 +121,16 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
     /**
-     * @return
+     * This method removes the last element
+     * in the LinkedListDeque and returns
+     * that element.
+     * @return T
      */
     @Override
     public T removeLast() {
-        if (size() == 0)
+        if (size() == 0) {
             return null;
+        }
         Node n = sentinel.next;
         for (int i = 0; i < size() - 1; i++) {
             n = n.next;
@@ -140,13 +152,16 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
     /**
+     * This method returns the element
+     * found at the index "index."
      * @param index index to get, assumes valid index
-     * @return
+     * @return T
      */
     @Override
     public T get(int index) {
-        if (index > size() || index < 0 || size() == 0)
+        if (index > size() || index < 0 || size() == 0) {
             return null;
+        }
         Node copy = sentinel.next;
         for (int i = 0; i < size(); i++) {
             if (i == index) {
@@ -158,19 +173,33 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
     /**
+     * This method also returns the
+     * item of LinkedListDeque at
+     * index "index," but does so
+     * using recursion.
      * @param index index to get, assumes valid index
-     * @return
+     * @return T
      */
     @Override
     public T getRecursive(int index) {
-        if (index > size() || index < 0 || size() == 0)
+        if (index > size() || index < 0 || size() == 0) {
             return null;
+        }
         return (T) getRecursive(sentinel.next, index);
     }
 
+    /**
+     * This is a helper method for
+     * the above, to get the item
+     * at index "index."
+     * @param n the current node
+     * @param index the current index
+     * @return T
+     */
     public T getRecursive(Node n, int index) {
-        if (index == 0)
+        if (index == 0) {
             return n.item;
+        }
         return getRecursive(n.next, index - 1);
     }
 }
