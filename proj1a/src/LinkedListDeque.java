@@ -21,14 +21,6 @@ public class LinkedListDeque<T> implements Deque<T> {
 
     public static void main(String[] args) {
         Deque<Integer> lld = new LinkedListDeque<>();
-        for (int i = 0; i < 10; i++) {
-            lld.addLast(i);
-        }
-        for (int i = 0; i < 10; i++) {
-            lld.removeFirst();
-        }
-        System.out.println(lld.removeLast().toString());
-        System.out.println(lld.toList());
     }
 
     /**
