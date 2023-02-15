@@ -192,7 +192,7 @@ public class ArrayDeque<T> implements Deque<T> {
         } else {
             indexZero = firstIndex + 1;
         }
-        if (index + indexZero < aList.length - 1) {
+        if (index + indexZero < aList.length) {
             return aList[index + indexZero];
         } else {
             int remainder = (indexZero + index) - (aList.length - 1);
