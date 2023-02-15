@@ -4,12 +4,12 @@ import java.util.List;
 public class ArrayDeque<T> implements Deque<T> {
     public static void main(String[] args) {
         Deque<Integer> ad = new ArrayDeque<>();
-        for(int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             ad.addLast(i);
         }
         ad.removeFirst();
         System.out.println(ad.toList());
-        for(int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             ad.addFirst(i);
         }
         ad.removeFirst();
@@ -52,11 +52,11 @@ public class ArrayDeque<T> implements Deque<T> {
         }
         aList = tempList;
         lastIndex = i;
-        firstIndex = aList.length-1;
+        firstIndex = aList.length - 1;
     }
 
     public void resizeDown() {
-        double usageFactor = (double) size()/aList.length;
+        double usageFactor = (double) size() / aList.length;
         if (usageFactor < 0.25 && aList.length >= 16) {
             int i = 0;
             int newFirstIndex;
@@ -87,10 +87,10 @@ public class ArrayDeque<T> implements Deque<T> {
     @Override
     public void addFirst(T x) {
         if (isFull()) {
-            resizeUp(10);
+            resizeUp(1.5);
         }
         aList[firstIndex] = x;
-        size ++;
+        size++;
         if (firstIndex > 0) {
             firstIndex--;
         } else {
@@ -101,30 +101,30 @@ public class ArrayDeque<T> implements Deque<T> {
     @Override
     public void addLast(T x) {
         if (isFull()) {
-            resizeUp(10);
+            resizeUp(1.5);
         }
         aList[lastIndex] = x;
-        size ++;
+        size++;
         if (lastIndex == aList.length - 1) {
             lastIndex = 0;
         } else {
-            lastIndex ++;
+            lastIndex++;
         }
     }
 
     @Override
     public List<T> toList() {
-        if (isEmpty()) {
-            return null;
-        }
         List<T> returnList = new ArrayList<>();
+        if (isEmpty()) {
+            return returnList;
+        }
         int curr = firstIndex + 1;
-        if ((!(firstIndex == size()) && curr == size()+1) || curr == aList.length) {
+        if ((!(firstIndex == size()) && curr == size() + 1) || curr == aList.length) {
             curr = 0;
         }
         while (true) {
             returnList.add(aList[curr]);
-            curr ++;
+            curr++;
             if (curr == aList.length) {
                 curr = 0;
             }
@@ -137,7 +137,7 @@ public class ArrayDeque<T> implements Deque<T> {
 
     @Override
     public boolean isEmpty() {
-        if(size() == 0) {
+        if (size() == 0) {
             return true;
         }
         return false;
@@ -157,13 +157,13 @@ public class ArrayDeque<T> implements Deque<T> {
         if (firstIndex < aList.length - 1) {
             temp = aList[firstIndex + 1];
             aList[firstIndex + 1] = null;
-            firstIndex ++;
+            firstIndex++;
         } else {
             temp = aList[0];
             aList[0] = null;
             firstIndex = 0;
         }
-        size --;
+        size--;
         resizeDown();
         return temp;
     }
@@ -177,13 +177,13 @@ public class ArrayDeque<T> implements Deque<T> {
         if (lastIndex > 0) {
             temp = aList[lastIndex - 1];
             aList[lastIndex - 1] = null;
-            lastIndex --;
+            lastIndex--;
         } else {
             temp = aList[aList.length - 1];
             aList[aList.length - 1] = null;
             lastIndex = aList.length - 1;
         }
-        size --;
+        size--;
         resizeDown();
         return temp;
     }
