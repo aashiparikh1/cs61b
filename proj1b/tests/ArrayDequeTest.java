@@ -214,6 +214,29 @@ public class ArrayDequeTest {
         assertThat(ad1.isEmpty()).isFalse();
         assertThat(ad1.size()).isEqualTo(1);
     }
+
+    @Test
+    public void add_last_after_remove_to_empty() {
+        Deque<Integer> ad1 = new ArrayDeque<>();
+        ad1.addLast(1);
+        ad1.addLast(2);
+        ad1.removeFirst();
+        ad1.removeLast();
+        assertThat(ad1.isEmpty()).isTrue();
+        assertThat(ad1.size()).isEqualTo(0);
+    }
+
+    @Test
+    public void add_last_after_remove_to_empty2() {
+        Deque<Integer> ad1 = new ArrayDeque<>();
+        ad1.addLast(1);
+        ad1.addLast(2);
+        ad1.removeFirst();
+        ad1.removeLast();
+        ad1.addLast(3);
+        assertThat(ad1.isEmpty()).isFalse();
+        assertThat(ad1.size()).isEqualTo(1);
+    }
     @Test
     public void removeFirst() {
         Deque<Integer> ad1 = new ArrayDeque<>();
@@ -230,15 +253,19 @@ public class ArrayDequeTest {
         assertThat(ad1.toList()).isEmpty();
     }
 
-//    @Test
-//    public void resizeUpTest() {
-//        Deque<Integer> ad1 = new ArrayDeque<>();
-//        for (int i = 0; i < 4; i++) {
-//            ad1.addFirst(i);
-//        }
-//        for (int i = 0; i < 4; i++) {
-//            ad1.addLast(i);
-//        }
-//    }
+    @Test
+    public void resizeDownTest() {
+        Deque<Integer> ad1 = new ArrayDeque<>();
+        for (int i = 0; i < 4; i++) {
+            ad1.addFirst(i);
+        }
+        for (int i = 0; i < 4; i++) {
+            ad1.addLast(i);
+        }
+        for (int i = 0; i < 7; i++) {
+            ad1.removeFirst();
+        }
+        assertThat(ad1.size()).isEqualTo(1);
+    }
 
 }
