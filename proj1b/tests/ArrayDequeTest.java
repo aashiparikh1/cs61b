@@ -256,13 +256,13 @@ public class ArrayDequeTest {
     @Test
     public void resizeDownTest() {
         Deque<Integer> ad1 = new ArrayDeque<>();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 8; i++) {
             ad1.addFirst(i);
         }
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 8; i++) {
             ad1.addLast(i);
         }
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 15; i++) {
             ad1.removeFirst();
         }
         assertThat(ad1.size()).isEqualTo(1);

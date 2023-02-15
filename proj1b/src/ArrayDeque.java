@@ -4,6 +4,8 @@ import java.util.List;
 public class ArrayDeque<T> implements Deque<T> {
     public static void main(String[] args) {
         Deque<Integer> ad = new ArrayDeque<>();
+        ad.addLast(0);
+        System.out.println(ad.get(0));
 //        for (int i = 0; i < 10; i++) {
 //            ad.addLast(i);
 //        }
@@ -20,6 +22,9 @@ public class ArrayDeque<T> implements Deque<T> {
     private T[] aList;
     private int firstIndex;
     private int lastIndex;
+
+    public static final int minResizeDownLength = 16;
+    public static final double resizeFactor = 1.5;
     public ArrayDeque() {
         size = 0;
         aList = (T[]) new Object[8];
@@ -57,7 +62,7 @@ public class ArrayDeque<T> implements Deque<T> {
 
     public void resizeDown() {
         double usageFactor = (double) size() / aList.length;
-        if (usageFactor < 0.25 && aList.length >= 16) {
+        if (usageFactor < 0.25 && aList.length >= minResizeDownLength) {
             int i = 0;
             int newFirstIndex;
             if (firstIndex == aList.length - 1) {
@@ -65,7 +70,7 @@ public class ArrayDeque<T> implements Deque<T> {
             } else {
                 newFirstIndex = firstIndex + 1;
             }
-            T[] tempList = (T[]) new Object[(int) (size() * 1.5)];
+            T[] tempList = (T[]) new Object[(int) (size() * resizeFactor)];
             while (true) {
                 tempList[i] = aList[newFirstIndex];
                 i++;
@@ -87,7 +92,7 @@ public class ArrayDeque<T> implements Deque<T> {
     @Override
     public void addFirst(T x) {
         if (isFull()) {
-            resizeUp(1.5);
+            resizeUp(resizeFactor);
         }
         aList[firstIndex] = x;
         size++;
@@ -100,8 +105,11 @@ public class ArrayDeque<T> implements Deque<T> {
 
     @Override
     public void addLast(T x) {
+        if(isEmpty()) {
+            aList[0] = x;
+        }
         if (isFull()) {
-            resizeUp(1.5);
+            resizeUp(resizeFactor);
         }
         aList[lastIndex] = x;
         size++;
