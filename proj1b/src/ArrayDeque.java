@@ -4,16 +4,16 @@ import java.util.List;
 public class ArrayDeque<T> implements Deque<T> {
     public static void main(String[] args) {
         Deque<Integer> ad = new ArrayDeque<>();
-        for (int i = 0; i < 10; i++) {
-            ad.addLast(i);
-        }
-        ad.removeFirst();
-        System.out.println(ad.toList());
-        for (int i = 0; i < 5; i++) {
-            ad.addFirst(i);
-        }
-        ad.removeFirst();
-        System.out.println(ad.toList());
+//        for (int i = 0; i < 10; i++) {
+//            ad.addLast(i);
+//        }
+//        ad.removeFirst();
+//        System.out.println(ad.toList());
+//        for (int i = 0; i < 5; i++) {
+//            ad.addFirst(i);
+//        }
+//        ad.removeFirst();
+//        System.out.println(ad.toList());
     }
 
     private int size;
