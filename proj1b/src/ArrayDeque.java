@@ -4,18 +4,6 @@ import java.util.List;
 public class ArrayDeque<T> implements Deque<T> {
     public static void main(String[] args) {
         Deque<Integer> ad = new ArrayDeque<>();
-        ad.addLast(0);
-        System.out.println(ad.get(0));
-//        for (int i = 0; i < 10; i++) {
-//            ad.addLast(i);
-//        }
-//        ad.removeFirst();
-//        System.out.println(ad.toList());
-//        for (int i = 0; i < 5; i++) {
-//            ad.addFirst(i);
-//        }
-//        ad.removeFirst();
-//        System.out.println(ad.toList());
     }
 
     private int size;
@@ -23,8 +11,8 @@ public class ArrayDeque<T> implements Deque<T> {
     private int firstIndex;
     private int lastIndex;
 
-    public static final int minResizeDownLength = 16;
-    public static final double resizeFactor = 1.5;
+    public static final int MIN_RESIZE_DOWN_LENGTH = 16;
+    public static final double RESIZE_FACTOR = 1.5;
     public ArrayDeque() {
         size = 0;
         aList = (T[]) new Object[8];
@@ -62,7 +50,7 @@ public class ArrayDeque<T> implements Deque<T> {
 
     public void resizeDown() {
         double usageFactor = (double) size() / aList.length;
-        if (usageFactor < 0.25 && aList.length >= minResizeDownLength) {
+        if (usageFactor < 0.25 && aList.length >= MIN_RESIZE_DOWN_LENGTH) {
             int i = 0;
             int newFirstIndex;
             if (firstIndex == aList.length - 1) {
@@ -70,7 +58,7 @@ public class ArrayDeque<T> implements Deque<T> {
             } else {
                 newFirstIndex = firstIndex + 1;
             }
-            T[] tempList = (T[]) new Object[(int) (size() * resizeFactor)];
+            T[] tempList = (T[]) new Object[(int) (size() * RESIZE_FACTOR)];
             while (true) {
                 tempList[i] = aList[newFirstIndex];
                 i++;
@@ -92,7 +80,7 @@ public class ArrayDeque<T> implements Deque<T> {
     @Override
     public void addFirst(T x) {
         if (isFull()) {
-            resizeUp(resizeFactor);
+            resizeUp(RESIZE_FACTOR);
         }
         aList[firstIndex] = x;
         size++;
@@ -105,11 +93,8 @@ public class ArrayDeque<T> implements Deque<T> {
 
     @Override
     public void addLast(T x) {
-        if(isEmpty()) {
-            aList[0] = x;
-        }
         if (isFull()) {
-            resizeUp(resizeFactor);
+            resizeUp(RESIZE_FACTOR);
         }
         aList[lastIndex] = x;
         size++;
@@ -198,9 +183,20 @@ public class ArrayDeque<T> implements Deque<T> {
 
     @Override
     public T get(int index) {
-        if (index > size() - 1 || index < 0 || isEmpty()) {
+        if (index > aList.length - 1 || index < 0 || isEmpty()) {
             return null;
         }
-        return aList[index];
+        int indexZero;
+        if (firstIndex != 0 && (firstIndex == size() - 1 || firstIndex == aList.length - 1)) {
+            indexZero = 0;
+        } else {
+            indexZero = firstIndex + 1;
+        }
+        if (index + indexZero < aList.length - 1) {
+            return aList[index + indexZero];
+        } else {
+            int remainder = (indexZero + index) - (aList.length - 1);
+            return aList[remainder];
+        }
     }
 }
