@@ -3,7 +3,6 @@ import java.util.List;
 
 public class ArrayDeque<T> implements Deque<T> {
     public static void main(String[] args) {
-        Deque<Integer> ArrayDeque = new ArrayDeque<>();
     }
 
     private int size;
@@ -187,16 +186,7 @@ public class ArrayDeque<T> implements Deque<T> {
             return null;
         }
         int indexZero;
-        if (firstIndex != 0 && (firstIndex == aList.length - 1)) {
-            indexZero = 0;
-        } else {
-            indexZero = firstIndex + 1;
-        }
-        if (index + indexZero < aList.length) {
-            return aList[index + indexZero];
-        } else {
-            int remainder = (indexZero + index) - (aList.length);
-            return aList[remainder];
-        }
+        indexZero = (firstIndex + index + 1) % aList.length;
+        return aList[indexZero];
     }
 }
