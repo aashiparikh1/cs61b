@@ -187,7 +187,7 @@ public class ArrayDeque<T> implements Deque<T> {
             return null;
         }
         int indexZero;
-        if (firstIndex != 0 && (firstIndex == size() - 1 || firstIndex == aList.length - 1)) {
+        if (firstIndex != 0 && (firstIndex == aList.length - 1)) {
             indexZero = 0;
         } else {
             indexZero = firstIndex + 1;
