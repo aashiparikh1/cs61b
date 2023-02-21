@@ -10,11 +10,11 @@ public class ArrayDeque<T> implements Deque<T> {
         lld.addFirst(0);
         lld.addFirst(1);
         lld.addFirst(2);
-        ArrayDeque<Integer> lld2 = new ArrayDeque<>();
-        lld2.addFirst(1);
+        LinkedListDeque<Integer> lld2 = new LinkedListDeque<>();
+        lld2.addFirst(0);
         lld2.addFirst(1);
         lld2.addFirst(2);
-        System.out.println(lld.toString());
+        System.out.println(lld.equals(lld2));
     }
 
     private int size;
@@ -250,8 +250,19 @@ public class ArrayDeque<T> implements Deque<T> {
                 }
             }
             return true;
+        } else if (o instanceof LinkedListDeque lld) {
+            if (lld.size() != this.size) {
+                return false;
+            }
+            for (T x : this) {
+                if (!lld.contains(x)) {
+                    return false;
+                }
+            }
+            return true;
         }
         return false;
+
     }
     @Override
     public String toString() {
