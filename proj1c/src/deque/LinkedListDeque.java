@@ -24,7 +24,7 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
     public static void main(String[] args) {
-        
+
     }
 
     /**
@@ -232,30 +232,6 @@ public class LinkedListDeque<T> implements Deque<T> {
             if (lld.size != this.size) {
                 return false;
             }
-            for (int i = 0; i < this.size; i++) {
-                if (get(i) != lld.get(i)) {
-                    return false;
-                }
-            }
-            return true;
-        }
-        if (o instanceof ArrayDeque ad) {
-            if (ad.size() != this.size) {
-                return false;
-            }
-            for (int i = 0; i < this.size; i++) {
-                if (get(i) != ad.get(i)) {
-                    return false;
-                }
-            }
-            return true;
-        }
-        return false;
-        /*
-        if (o instanceof LinkedListDeque lld) {
-            if (lld.size != this.size) {
-                return false;
-            }
             for (T x : this) {
                 if (!lld.contains(x)) {
                     return false;
@@ -284,8 +260,6 @@ public class LinkedListDeque<T> implements Deque<T> {
             return true;
         }
         return false;
-
-         */
     }
 
     @Override
