@@ -247,16 +247,16 @@ public class LinkedListDeque<T> implements Deque<T> {
                 }
             }
             return true;
-//        } else if (o instanceof ArrayDeque ad) {
-//            if (ad.size() != this.size) {
-//                return false;
-//            }
-//            for (T x : this) {
-//                if (!ad.contains(x)) {
-//                    return false;
-//                }
-//            }
-//            return true;
+        } else if (o instanceof ArrayDeque ad) {
+            if (ad.size() != this.size) {
+                return false;
+            }
+            for (T x : this) {
+                if (!ad.contains(x)) {
+                    return false;
+                }
+            }
+            return true;
         }
         return false;
     }
