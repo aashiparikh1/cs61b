@@ -25,15 +25,7 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
     public static void main(String[] args) {
-        LinkedListDeque<Integer> lld = new LinkedListDeque<>();
-        lld.addFirst(0);
-        lld.addFirst(1);
-        lld.addFirst(2);
-        ArrayDeque<Integer> lld2 = new ArrayDeque<>();
-        lld2.addFirst(1);
-        lld2.addFirst(1);
-        lld2.addFirst(2);
-        System.out.println(lld.equals(lld2));
+
     }
 
     /**
@@ -246,6 +238,11 @@ public class LinkedListDeque<T> implements Deque<T> {
                     return false;
                 }
             }
+            for (Object x : lld) {
+                if (!this.contains((T)x)) {
+                    return false;
+                }
+            }
             return true;
         } else if (o instanceof ArrayDeque ad) {
             if (ad.size() != this.size) {
@@ -253,6 +250,11 @@ public class LinkedListDeque<T> implements Deque<T> {
             }
             for (T x : this) {
                 if (!ad.contains(x)) {
+                    return false;
+                }
+            }
+            for (Object x : ad) {
+                if (!this.contains((T)x)) {
                     return false;
                 }
             }
