@@ -250,16 +250,16 @@ public class ArrayDeque<T> implements Deque<T> {
                 }
             }
             return true;
-        } else if (o instanceof LinkedListDeque lld) {
-            if (lld.size() != this.size) {
-                return false;
-            }
-            for (T x : this) {
-                if (!lld.contains(x)) {
-                    return false;
-                }
-            }
-            return true;
+//        } else if (o instanceof LinkedListDeque lld) {
+//            if (lld.size() != this.size) {
+//                return false;
+//            }
+//            for (T x : this) {
+//                if (!lld.contains(x)) {
+//                    return false;
+//                }
+//            }
+//            return true;
         }
         return false;
 
