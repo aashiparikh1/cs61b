@@ -1,4 +1,4 @@
-You must answer at least 4 questions, but the remaining ones are optional. The main goal of this file is to get you thinking critically about your own work, but we will also use these self reflections at the end of the semester when we do our internal review of the course.
+ You must answer at least 4 questions, but the remaining ones are optional. The main goal of this file is to get you thinking critically about your own work, but we will also use these self reflections at the end of the semester when we do our internal review of the course.
 
 ArrayDeque:
 
@@ -8,11 +8,11 @@ A:
 
 Q: What's something you felt proud of in your code, if anything?
 
-A:
+A: I'm proud of my get function; just hours before the deadline, I was frustrated as the autograder kept failing my get function, and it seemed like the problems were endless. Each modification I made would pass the test I was targeting, but there were still many more I was failing, and then it was 11:30 pm on the due date and I still hadn't figured it out. I was nearly ready to give up, when I had an epiphany: I could use mod to find the remainer (not going to get into the entire solution because that would take too long). Ultimately, I had a much shorter and cleaner solution, and by a miracle, I passed all gradescope tests at 11:56 pm.
 
 Q: What's something that was particularly inelegant in your code, if anything?
 
-A:
+A: I think my resize functions are pretty inelegant because firstly my resize up function takes a parameter when it doesn't need to, and secondly, both functions use long while loops, and similar methods, so I feel that they could've been condensed into a singular function if I did more thinking.
 
 Q: What did you learn by talking to your partner about writing ArrayDeque?
 
@@ -20,11 +20,11 @@ A:
 
 Q: What do you wish you would have known before writing ArrayDeque, if anything?
 
-A:
+A: I wish I would've known that sometimes, if tests continuously fail, it might just be a sign that I need to rewrite or rethink the way my function works. If I had thought with this mindset before, I wouldn't have spent so much time trying to modify my get function and would've instead rewritten it much earlier.
 
 Q: If you wrote ArrayDeque again, what would you do differently, if anything?
 
-A:
+A: I would try to work out a solution that could combine both resize methods, so that I could call them for both my add and remove functions, leading to a much more elegant solution.
 
 -----
 
@@ -36,11 +36,11 @@ A:
 
 Q: What's something you felt proud of in your code, if anything?
 
-A:
+A: I felt proud of my getRecursive function in LinkedListDeque because although it was quite a difficult function to write, I ended up with a solution that was quite similar to the staff solution. I used a helper function and didn't need too many lines of code.
 
 Q: What's something that was particularly inelegant in your code, if anything?
 
-A:
+A: My remove functions seem inelegant to me, because I used a lot of lines to change various pointers, and I had to make a lot of small changes to fix various errors. I could've planned out a more cohesive solution that would more elegantly change the pointers using fewer lines.
 
 Q: What did you learn by talking to your partner about writing LinkedListDeque?
 
@@ -48,11 +48,11 @@ A:
 
 Q: What do you wish you would have known before writing LinkedListDeque, if anything?
 
-A:
+A: I wish I would've known that I should first consider what the tests I write will look like before trying to put together solutions to the methods. I think it's a lot easier to consider edge cases and expected values before trying to solve it, to get the fewest number of bugs.
 
 Q: If you wrote LinkedListDeque again, what would you do differently, if anything?
 
-A:
+A: If I wrote it again, I would probably spend more time thinking about the remove functions, and considering various technicalities or special cases. That way, I could create a cleaner and more elegant solution, and perhaps have a slightly better runtime.
 
 -----
 
@@ -60,4 +60,4 @@ Meta:
 
 Q: Did you like this design review process? Anything we should do differently next time?
 
-A: 
+A: I liked this review process because it allowed me to think critically about my code from projects 1a and 1b, and understand how I can be a better coder. However, typing the answers under a bit of a time contraint was a little stressful and I would've preferred it to be more discussion based.
