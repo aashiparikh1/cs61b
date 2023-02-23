@@ -6,15 +6,6 @@ import java.util.List;
 
 public class ArrayDeque<T> implements Deque<T> {
     public static void main(String[] args) {
-        ArrayDeque<Integer> lld = new ArrayDeque<>();
-        lld.addFirst(0);
-        lld.addFirst(1);
-        lld.addFirst(2);
-        LinkedListDeque<Integer> lld2 = new LinkedListDeque<>();
-        lld2.addFirst(0);
-        lld2.addFirst(1);
-        lld2.addFirst(2);
-        System.out.println(lld.equals(lld2));
     }
 
     private int size;
