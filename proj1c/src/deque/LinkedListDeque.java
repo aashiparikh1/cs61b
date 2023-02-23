@@ -237,7 +237,7 @@ public class LinkedListDeque<T> implements Deque<T> {
                 }
             }
             for (Object x : lld) {
-                if (!this.contains((T)x)) {
+                if (!this.contains((T) x)) {
                     return false;
                 }
             }
@@ -252,7 +252,7 @@ public class LinkedListDeque<T> implements Deque<T> {
                 }
             }
             for (Object x : ad) {
-                if (!this.contains((T)x)) {
+                if (!this.contains((T) x)) {
                     return false;
                 }
             }
