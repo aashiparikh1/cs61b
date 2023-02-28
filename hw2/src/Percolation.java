@@ -74,7 +74,7 @@ public class Percolation {
         if (!validateRowAndColumn(row, col)) {
             throw new java.lang.IllegalArgumentException("Invalid row or column index.");
         }
-        if (disjointSet.connected(topRow, xyTo1D(row, col))) {
+        if (disjointSet.connected(topRow, xyTo1D(row, col)) && isOpen(row, col)) {
             return true;
         }
         return false;
@@ -85,7 +85,9 @@ public class Percolation {
     }
 
     public boolean percolates() {
-        if (disjointSet.connected(topRow, bottomRow)) {
+        if (dimension == 1 && isOpen(0, 0)) {
+            return true;
+        } else if (disjointSet.connected(topRow, bottomRow)) {
             return true;
         }
         return false;
