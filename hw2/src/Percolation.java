@@ -2,33 +2,106 @@ import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 // TODO: Add any other necessary imports.
 
 public class Percolation {
-    // TODO: Add any necessary instance variables.
+    private boolean[][] grid;
+    private int openSites;
+    private int dimension;
+    private WeightedQuickUnionUF disjointSet;
+    private int topRow;
+    private int bottomRow;
 
     public Percolation(int N) {
-        // TODO: Fill in this constructor.
+        if (N <= 0) {
+            throw new java.lang.IllegalArgumentException("Grid size must be greater than 0.");
+        }
+        dimension = N;
+        openSites = 0;
+        grid = new boolean[N][N];
+        for (int r = 0; r < N; r++) {
+            for (int c = 0; c < N; c++) {
+                grid[r][c] = false;
+            }
+        }
+        disjointSet = new WeightedQuickUnionUF(N * N);
+        topRow = 0;
+        bottomRow = N - 1;
     }
 
     public void open(int row, int col) {
-        // TODO: Fill in this method.
+        if (!validateRowAndColumn(row, col)) {
+            throw new java.lang.IllegalArgumentException("Invalid row or column index.");
+        }
+        if (isOpen(row, col)) {
+            return;
+        }
+        grid[row][col] = true;
+        openSites ++;
+        int oneDPos = xyTo1D(row, col);
+        // connects topRow items together
+        if (row == topRow) {
+            disjointSet.union(topRow, oneDPos);
+        }
+        // connects bottomRow items together
+        if (row == bottomRow) {
+            disjointSet.union(bottomRow, oneDPos);
+        }
+        // connects to right item, if open
+        if (col + 1 < dimension && isOpen(row, col + 1)) {
+            disjointSet.union(oneDPos, oneDPos + 1);
+        }
+        // connects to left item, if open
+        if (col - 1 >= 0 && isOpen(row, col - 1)) {
+            disjointSet.union(oneDPos, oneDPos - 1);
+        }
+        // connects to bottom item, if open
+        if (row + 1 < dimension && isOpen(row + 1, col)) {
+            disjointSet.union(oneDPos, oneDPos + dimension);
+        }
+        // connects to top item, if open
+        if (row - 1 >= 0 && isOpen(row - 1, col)) {
+            disjointSet.union(oneDPos, oneDPos - dimension);
+        }
+
     }
 
     public boolean isOpen(int row, int col) {
-        // TODO: Fill in this method.
-        return false;
+        if (!validateRowAndColumn(row, col)) {
+            throw new java.lang.IllegalArgumentException("Invalid row or column index.");
+        }
+        return grid[row][col];
     }
 
     public boolean isFull(int row, int col) {
-        // TODO: Fill in this method.
+        if (!validateRowAndColumn(row, col)) {
+            throw new java.lang.IllegalArgumentException("Invalid row or column index.");
+        }
+        if (disjointSet.connected(topRow, xyTo1D(row, col))) {
+            return true;
+        }
         return false;
     }
 
     public int numberOfOpenSites() {
-        // TODO: Fill in this method.
-        return 0;
+        return openSites;
     }
 
     public boolean percolates() {
-        // TODO: Fill in this method.
+        if (disjointSet.connected(topRow, bottomRow)) {
+            return true;
+        }
+        return false;
+    }
+
+    public int xyTo1D(int r, int c) {
+        if (!validateRowAndColumn(r, c)) {
+            throw new java.lang.IllegalArgumentException("Invalid row or column index.");
+        }
+        return c + (r * dimension);
+    }
+
+    public boolean validateRowAndColumn(int r, int c) {
+        if ((r >= 0 && r < dimension) && (c >= 0 && c < dimension)) {
+            return true;
+        }
         return false;
     }
 
