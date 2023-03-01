@@ -21,9 +21,9 @@ public class Percolation {
                 grid[r][c] = false;
             }
         }
-        disjointSet = new WeightedQuickUnionUF(N * N);
+        disjointSet = new WeightedQuickUnionUF(N * N + 5);
         topRow = 0;
-        bottomRow = N - 1;
+        bottomRow = N * N + 2;
     }
 
     public void open(int row, int col) {
@@ -41,7 +41,7 @@ public class Percolation {
             disjointSet.union(topRow, oneDPos);
         }
         // connects bottomRow items together
-        if (row == bottomRow) {
+        if (row == dimension - 1) {
             disjointSet.union(bottomRow, oneDPos);
         }
         // connects to right item, if open
@@ -87,6 +87,8 @@ public class Percolation {
     public boolean percolates() {
         if (dimension == 1 && isOpen(0, 0)) {
             return true;
+        } else if (dimension == 1) {
+            return false;
         } else if (disjointSet.connected(topRow, bottomRow)) {
             return true;
         }
