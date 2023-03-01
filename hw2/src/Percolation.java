@@ -28,7 +28,7 @@ public class Percolation {
 
     public void open(int row, int col) {
         if (!validateRowAndColumn(row, col)) {
-            throw new java.lang.IllegalArgumentException("Invalid row or column index.");
+            throw new java.lang.IndexOutOfBoundsException("Invalid row or column index.");
         }
         if (isOpen(row, col)) {
             return;
