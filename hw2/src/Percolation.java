@@ -1,5 +1,4 @@
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
-// TODO: Add any other necessary imports.
 
 public class Percolation {
     private boolean[][] grid;
@@ -40,7 +39,7 @@ public class Percolation {
             return;
         }
         grid[row][col] = true;
-        openSites ++;
+        openSites++;
         int oneDPos = xyTo1D(row, col);
         // connects topRow items together
         if (row == topRow) {
@@ -133,8 +132,4 @@ public class Percolation {
         }
         return false;
     }
-
-    // TODO: Add any useful helper methods (we highly recommend this!).
-    // TODO: Remove all TODO comments before submitting.
-
 }

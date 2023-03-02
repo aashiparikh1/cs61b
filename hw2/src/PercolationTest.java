@@ -1,14 +1,6 @@
 import edu.princeton.cs.algs4.StdRandom;
-import edu.princeton.cs.algs4.Stopwatch;
-import jh61b.utils.Reflection;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.lang.reflect.Field;
-import java.util.List;
-
 import static com.google.common.truth.Truth.assertThat;
-import static com.google.common.truth.Truth.assertWithMessage;
 
 class PercolationTest {
 
@@ -33,7 +25,7 @@ class PercolationTest {
             int randCol = StdRandom.uniform(N);
             p.open(randRow, randCol);
         }
-        assertThat(p.numberOfOpenSites()).isAtLeast((N * N)/2);
+        assertThat(p.numberOfOpenSites()).isAtLeast((N * N) / 2);
     }
 
     @Test
@@ -46,7 +38,7 @@ class PercolationTest {
             int randCol = StdRandom.uniform(N);
             p.open(randRow, randCol);
         }
-        assertThat(p.numberOfOpenSites()).isAtLeast((N * N)/2);
+        assertThat(p.numberOfOpenSites()).isAtLeast((N * N) / 2);
     }
 
     @Test
@@ -59,7 +51,7 @@ class PercolationTest {
             int randCol = StdRandom.uniform(N);
             p.open(randRow, randCol);
         }
-        assertThat(p.numberOfOpenSites()).isAtLeast((N * N)/2);
+        assertThat(p.numberOfOpenSites()).isAtLeast((N * N) / 2);
     }
 
     @Test
@@ -72,7 +64,7 @@ class PercolationTest {
             int randCol = StdRandom.uniform(N);
             p.open(randRow, randCol);
         }
-        assertThat(p.numberOfOpenSites()).isAtLeast((N * N)/2);
+        assertThat(p.numberOfOpenSites()).isAtLeast((N * N) / 2);
     }
 
     @Test
@@ -85,7 +77,7 @@ class PercolationTest {
             int randCol = StdRandom.uniform(N);
             p.open(randRow, randCol);
         }
-        assertThat(p.numberOfOpenSites()).isAtLeast((N * N)/2);
+        assertThat(p.numberOfOpenSites()).isAtLeast((N * N) / 2);
     }
 
     @Test
