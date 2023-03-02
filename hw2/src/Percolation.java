@@ -6,7 +6,11 @@ public class Percolation {
     private int openSites;
     private int dimension;
     private WeightedQuickUnionUF disjointSet;
+
+    private WeightedQuickUnionUF disjointSetAvoidABackwash;
     private int topRow;
+
+    private int topRowDSAB;
     private int bottomRow;
 
     public Percolation(int N) {
@@ -22,7 +26,9 @@ public class Percolation {
             }
         }
         disjointSet = new WeightedQuickUnionUF(N * N + 5);
+        disjointSetAvoidABackwash = new WeightedQuickUnionUF(N * N + 5);
         topRow = 0;
+        topRowDSAB = 0;
         bottomRow = N * N + 2;
     }
 
@@ -40,6 +46,10 @@ public class Percolation {
         if (row == topRow) {
             disjointSet.union(topRow, oneDPos);
         }
+        // connects topRow items together
+        if (row == topRowDSAB) {
+            disjointSetAvoidABackwash.union(topRow, oneDPos);
+        }
         // connects bottomRow items together
         if (row == dimension - 1) {
             disjointSet.union(bottomRow, oneDPos);
@@ -48,33 +58,48 @@ public class Percolation {
         if (col + 1 < dimension && isOpen(row, col + 1)) {
             disjointSet.union(oneDPos, oneDPos + 1);
         }
+        // connects to right item, if open
+        if (col + 1 < dimension && isOpen(row, col + 1)) {
+            disjointSetAvoidABackwash.union(oneDPos, oneDPos + 1);
+        }
         // connects to left item, if open
         if (col - 1 >= 0 && isOpen(row, col - 1)) {
             disjointSet.union(oneDPos, oneDPos - 1);
+        }
+        // connects to left item, if open
+        if (col - 1 >= 0 && isOpen(row, col - 1)) {
+            disjointSetAvoidABackwash.union(oneDPos, oneDPos - 1);
         }
         // connects to bottom item, if open
         if (row + 1 < dimension && isOpen(row + 1, col)) {
             disjointSet.union(oneDPos, oneDPos + dimension);
         }
+        // connects to bottom item, if open
+        if (row + 1 < dimension && isOpen(row + 1, col)) {
+            disjointSetAvoidABackwash.union(oneDPos, oneDPos + dimension);
+        }
         // connects to top item, if open
         if (row - 1 >= 0 && isOpen(row - 1, col)) {
             disjointSet.union(oneDPos, oneDPos - dimension);
         }
-
+        // connects to top item, if open
+        if (row - 1 >= 0 && isOpen(row - 1, col)) {
+            disjointSetAvoidABackwash.union(oneDPos, oneDPos - dimension);
+        }
     }
 
     public boolean isOpen(int row, int col) {
         if (!validateRowAndColumn(row, col)) {
-            throw new java.lang.IllegalArgumentException("Invalid row or column index.");
+            throw new java.lang.IndexOutOfBoundsException("Invalid row or column index.");
         }
         return grid[row][col];
     }
 
     public boolean isFull(int row, int col) {
         if (!validateRowAndColumn(row, col)) {
-            throw new java.lang.IllegalArgumentException("Invalid row or column index.");
+            throw new java.lang.IndexOutOfBoundsException("Invalid row or column index.");
         }
-        if (disjointSet.connected(topRow, xyTo1D(row, col)) && isOpen(row, col)) {
+        if (disjointSetAvoidABackwash.connected(topRow, xyTo1D(row, col)) && isOpen(row, col)) {
             return true;
         }
         return false;
