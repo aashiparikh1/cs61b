@@ -40,7 +40,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V>{
      * @param value
      */
     private Node put(K key, V value, Node N) {
-        if (key == null || value == null) {
+        if (key == null) {
             return null;
         }
         if (N == null) {
