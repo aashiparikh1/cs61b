@@ -70,7 +70,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V>{
         return get(key, root);
     }
     private V get(K key, Node N) {
-        if (root == null || key == null) {
+        if (N == null || key == null) {
             return null;
         }
         if (key.compareTo(N.key) == 0) {
@@ -92,6 +92,21 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V>{
      */
     @Override
     public boolean containsKey(K key) {
+        return containsKey(key, root);
+    }
+    private boolean containsKey(K key, Node N) {
+        if (N == null || key == null) {
+            return false;
+        }
+        if (key.compareTo(N.key) == 0) {
+            return true;
+        }
+        if (key.compareTo(N.key) > 0) {
+            return containsKey(key, N.right);
+        }
+        if (key.compareTo(N.key) < 0) {
+            return containsKey(key, N.left);
+        }
         return false;
     }
 
@@ -108,7 +123,8 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V>{
      */
     @Override
     public void clear() {
-        throw new UnsupportedOperationException();
+        root = null;
+        size = 0;
     }
 
     /**
@@ -153,11 +169,16 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V>{
         bstmap.put(3, 4);
         bstmap.put(7, 8);
         bstmap.put(5, 5);
-        System.out.println(bstmap.get(5));
-        System.out.println(bstmap.get(7));
-        System.out.println(bstmap.get(2));
-        System.out.println(bstmap.get(3));
-        System.out.println(bstmap.get(6));
+        System.out.println(bstmap.containsKey(5));
+        System.out.println(bstmap.containsKey(7));
+        System.out.println(bstmap.containsKey(2));
+        System.out.println(bstmap.containsKey(3));
+        System.out.println(bstmap.containsKey(6));
+        System.out.println(bstmap.containsKey(0));
+        System.out.println(bstmap.containsKey(-1));
+        System.out.println(bstmap.containsKey(10000));
+        bstmap.clear();
+
     }
 
 }
