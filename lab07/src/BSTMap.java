@@ -40,6 +40,9 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V>{
      * @param value
      */
     private Node put(K key, V value, Node N) {
+        if (key == null || value == null) {
+            return null;
+        }
         if (N == null) {
             size++;
             return new Node(key, value);
@@ -63,7 +66,22 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V>{
      * @param key
      */
     @Override
-    public V get(K key) {
+    public V get (K key) {
+        return get(key, root);
+    }
+    private V get(K key, Node N) {
+        if (root == null || key == null) {
+            return null;
+        }
+        if (key.compareTo(N.key) == 0) {
+            return N.val;
+        }
+        if (key.compareTo(N.key) > 0) {
+            return get(key, N.right);
+        }
+        if (key.compareTo(N.key) < 0) {
+            return get(key, N.left);
+        }
         return null;
     }
 
@@ -135,6 +153,11 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V>{
         bstmap.put(3, 4);
         bstmap.put(7, 8);
         bstmap.put(5, 5);
+        System.out.println(bstmap.get(5));
+        System.out.println(bstmap.get(7));
+        System.out.println(bstmap.get(2));
+        System.out.println(bstmap.get(3));
+        System.out.println(bstmap.get(6));
     }
 
 }
