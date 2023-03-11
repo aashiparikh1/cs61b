@@ -85,6 +85,9 @@ public class NGramMap {
      * NGramMap. This is also known as a "defensive copy".
      */
     public TimeSeries countHistory(String word) {
+        if (freqByWord.get(word) == null) {
+            return new TimeSeries();
+        }
         Set<Integer> keyset = freqByWord.get(word).keySet();
         ArrayList<Integer> keyArray = new ArrayList<>(keyset);
         int startYear = keyArray.get(0);

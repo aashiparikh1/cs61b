@@ -44,7 +44,7 @@ public class NGramMapTest {
     @Test
     public void testOnLargeFile() {
         // creates an NGramMap from a large dataset
-        NGramMap ngm = new NGramMap("./data/ngrams/top_14377_words.csv",
+        NGramMap ngm = new NGramMap("./data/ngrams/top_49887_words.csv",
                 "./data/ngrams/total_counts.csv");
 
         // returns the count of the number of occurrences of fish per year between 1850 and 1933.
