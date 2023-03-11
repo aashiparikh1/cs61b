@@ -1,6 +1,11 @@
 package ngordnet.ngrams;
 
-import java.util.Collection;
+import edu.princeton.cs.algs4.In;
+
+import java.io.File;
+
+import java.io.FileNotFoundException;
+import java.util.*;
 
 /**
  * An object that provides utility methods for making queries on the
@@ -16,13 +21,51 @@ public class NGramMap {
 
     private static final int MIN_YEAR = 1400;
     private static final int MAX_YEAR = 2100;
-    // TODO: Add any necessary static/instance variables.
+    private TreeMap<String, TimeSeries> freqByWord;
+    private TimeSeries freqByYear;
 
     /**
      * Constructs an NGramMap from WORDSFILENAME and COUNTSFILENAME.
      */
     public NGramMap(String wordsFilename, String countsFilename) {
-        // TODO: Fill in this constructor. See the "NGramMap Tips" section of the spec for help.
+        In wordsFile = new In(wordsFilename);
+        In countsFile = new In(countsFilename);
+        freqByWord = new TreeMap<>();
+        String prevWord = null;
+        TimeSeries ts = new TimeSeries();
+        while (wordsFile.hasNextLine()) {
+            try {
+                String word = wordsFile.readString();
+                int year = wordsFile.readInt();
+                int freq = wordsFile.readInt();
+                wordsFile.readInt(); // this is only needed to skip over column 4
+                if (!word.equals(prevWord) && prevWord != null) {
+                    freqByWord.put(prevWord, ts);
+                    ts = new TimeSeries();
+                    ts.put(year, (double) freq);
+                } else {
+                    ts.put(year, (double) freq);
+                }
+                prevWord = word;
+            } catch (NoSuchElementException e) {
+                //do nothing
+            }
+        }
+
+        freqByYear = new TimeSeries();
+        try {
+            File r = new File(countsFilename);
+            Scanner sc = new Scanner(r);
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
+                StringTokenizer tokens = new StringTokenizer(line, ",");
+                int year = Integer.parseInt(tokens.nextToken());
+                double freq = Double.parseDouble(tokens.nextToken());
+                freqByYear.put(year, freq);
+            }
+        } catch (FileNotFoundException e) {
+           // do nothing
+        }
     }
 
     /**
@@ -32,8 +75,7 @@ public class NGramMap {
      * NGramMap. This is also known as a "defensive copy".
      */
     public TimeSeries countHistory(String word, int startYear, int endYear) {
-        // TODO: Fill in this method.
-        return null;
+        return new TimeSeries(freqByWord.get(word), startYear, endYear);
     }
 
     /**
@@ -43,16 +85,22 @@ public class NGramMap {
      * NGramMap. This is also known as a "defensive copy".
      */
     public TimeSeries countHistory(String word) {
-        // TODO: Fill in this method.
-        return null;
+        Set<Integer> keyset = freqByWord.get(word).keySet();
+        ArrayList<Integer> keyArray = new ArrayList<>(keyset);
+        int startYear = keyArray.get(0);
+        int endYear = keyArray.get(keyArray.size() - 1);
+        return new TimeSeries(freqByWord.get(word), startYear, endYear);
     }
 
     /**
      * Returns a defensive copy of the total number of words recorded per year in all volumes.
      */
     public TimeSeries totalCountHistory() {
-        // TODO: Fill in this method.
-        return null;
+        Set<Integer> keyset = freqByYear.keySet();
+        ArrayList<Integer> keyArray = new ArrayList<>(keyset);
+        int startYear = keyArray.get(0);
+        int endYear = keyArray.get(keyArray.size() - 1);
+        return new TimeSeries(freqByYear, startYear, endYear);
     }
 
     /**
@@ -60,8 +108,13 @@ public class NGramMap {
      * and ENDYEAR, inclusive of both ends.
      */
     public TimeSeries weightHistory(String word, int startYear, int endYear) {
-        // TODO: Fill in this method.
-        return null;
+        TimeSeries ts = countHistory(word, startYear, endYear);
+        TimeSeries wHTS = new TimeSeries();
+        Set<Integer> keyset = ts.keySet();
+        for (Integer key : keyset) {
+            wHTS.put(key, ts.get(key) / freqByYear.get(key));
+        }
+        return wHTS;
     }
 
     /**
@@ -70,8 +123,13 @@ public class NGramMap {
      * TimeSeries.
      */
     public TimeSeries weightHistory(String word) {
-        // TODO: Fill in this method.
-        return null;
+        TimeSeries ts = countHistory(word);
+        TimeSeries wHTS = new TimeSeries();
+        Set<Integer> keyset = ts.keySet();
+        for (Integer key : keyset) {
+            wHTS.put(key, ts.get(key) / freqByYear.get(key));
+        }
+        return wHTS;
     }
 
     /**
@@ -81,18 +139,21 @@ public class NGramMap {
      */
     public TimeSeries summedWeightHistory(Collection<String> words,
                                           int startYear, int endYear) {
-        // TODO: Fill in this method.
-        return null;
+        TimeSeries sWH = new TimeSeries();
+        for (String word : words) {
+            sWH = sWH.plus(weightHistory(word, startYear, endYear));
+        }
+        return sWH;
     }
 
     /**
      * Returns the summed relative frequency per year of all words in WORDS.
      */
     public TimeSeries summedWeightHistory(Collection<String> words) {
-        // TODO: Fill in this method.
-        return null;
+        TimeSeries sWH = new TimeSeries();
+        for (String word : words) {
+            sWH = sWH.plus(weightHistory(word));
+        }
+        return sWH;
     }
-
-    // TODO: Add any private helper methods.
-    // TODO: Remove all TODO comments before submitting.
 }
