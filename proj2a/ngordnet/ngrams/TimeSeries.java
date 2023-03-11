@@ -26,10 +26,12 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      */
     public TimeSeries(TimeSeries ts, int startYear, int endYear) {
         super();
-        Set<Integer> keyset = ts.keySet();
-        for (Integer key : keyset) {
-            if (key >= startYear && key <= endYear) {
-                this.put(key, ts.get(key));
+        if (ts != null) {
+            Set<Integer> keyset = ts.keySet();
+            for (Integer key : keyset) {
+                if (key >= startYear && key <= endYear) {
+                    this.put(key, ts.get(key));
+                }
             }
         }
     }
@@ -38,11 +40,8 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      * Returns all years for this TimeSeries (in any order).
      */
     public List<Integer> years() {
-        ArrayList<Integer> yearList = new ArrayList<>();
         Set<Integer> keyset = this.keySet();
-        for (Integer key : keyset) {
-            yearList.add(key);
-        }
+        ArrayList<Integer> yearList = new ArrayList<>(keyset);
         return yearList;
     }
 
