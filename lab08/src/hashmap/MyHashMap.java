@@ -27,15 +27,21 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     /* Instance Variables */
     private Collection<Node>[] buckets;
-    private int initialCapacity = 16;
-    private int currentCapacity = initialCapacity;
-    private double loadFactor = 0.75;
+    public static final int DEFAULT_INITIAL_CAPACITY = 16;
+    public static final double DEFAULT_LOAD_FACTOR = 0.75;
+    public static final double RESIZE_FACTOR = 1.5;
+    private int initialCapacity;
+    private int currentCapacity;
+    private double loadFactor;
     private int size;
     // You should probably define some more!
 
     /** Constructors */
     public MyHashMap() {
+        this.initialCapacity = DEFAULT_INITIAL_CAPACITY;
+        this.loadFactor = DEFAULT_LOAD_FACTOR;
         buckets = new Collection[initialCapacity];
+        this.currentCapacity = initialCapacity;
         this.size = 0;
     }
 
@@ -102,9 +108,6 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         return null;
     }
 
-    // TODO: Implement the methods of the Map61B Interface below
-    // Your code won't compile until you do so!
-
     /**
      * Associates the specified value with the specified key in this map.
      * If the map already contains the specified key, replaces the key's mapping
@@ -115,15 +118,21 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      */
     @Override
     public void put(K key, V value) {
-        if (size / currentCapacity > loadFactor) {
-            Collection<Node>[] temp = new Collection[(int) (currentCapacity * 1.5)];
-            currentCapacity *= 1.5;
+        if ((double) size / (double) currentCapacity > loadFactor || currentCapacity == 0) {
+            int newCapacity;
+            if (currentCapacity == 0) {
+                newCapacity = DEFAULT_INITIAL_CAPACITY;
+            } else {
+                newCapacity = (int) (currentCapacity * RESIZE_FACTOR);
+            }
+            Collection<Node>[] temp = new Collection[newCapacity];
+            currentCapacity = newCapacity;
             for (Collection<Node> bucket : buckets) {
                 if (bucket == null) {
                     bucket = createBucket();
                 }
                 for (Node item : bucket) {
-                    int hash = item.hashCode();
+                    int hash = item.key.hashCode();
                     int bucketNum = Math.floorMod(hash, currentCapacity);
                     if (temp[bucketNum] == null) {
                         temp[bucketNum] = createBucket();
@@ -138,12 +147,12 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         if (buckets[bucket] == null) {
             buckets[bucket] = createBucket();
         }
-       for(Node item : buckets[bucket]) {
+        for (Node item : buckets[bucket]) {
             if (item.key.equals(key)) {
                 item.value = value;
                 return;
             }
-       }
+        }
         buckets[bucket].add(createNode(key, value));
         size++;
     }
