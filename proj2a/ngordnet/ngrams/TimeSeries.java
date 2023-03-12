@@ -40,7 +40,7 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      * Returns all years for this TimeSeries (in any order).
      */
     public List<Integer> years() {
-        return this.keySet().stream().toList();
+        return (List<Integer>) this.keySet();
     }
 
     /**
