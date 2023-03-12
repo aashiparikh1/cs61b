@@ -1,5 +1,7 @@
 package ngordnet.ngrams;
 
+import com.google.common.collect.Lists;
+
 import java.util.*;
 
 /**
@@ -40,7 +42,7 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      * Returns all years for this TimeSeries (in any order).
      */
     public List<Integer> years() {
-        return (List<Integer>) this.keySet();
+        return Lists.newArrayList(this.keySet());
     }
 
     /**
