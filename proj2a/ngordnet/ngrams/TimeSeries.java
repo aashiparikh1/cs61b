@@ -72,16 +72,18 @@ public class TimeSeries extends TreeMap<Integer, Double> {
             return new TimeSeries();
         }
         TimeSeries combinedTS = new TimeSeries();
-        for (int i = 0; i < this.years().size(); i++) {
-            int year = this.years().get(i);
+        List<Integer> years = this.years();
+        List<Integer> tsYears = ts.years();
+        for (int i = 0; i < this.size(); i++) {
+            int year = years.get(i);
             if (!ts.containsKey(year)) {
                 combinedTS.put(year, this.get(year));
             } else {
                 combinedTS.put(year, this.get(year) + ts.get(year));
             }
         }
-        for (int i = 0; i < ts.years().size(); i++) {
-            int year = ts.years().get(i);
+        for (int i = 0; i < ts.size(); i++) {
+            int year = tsYears.get(i);
             if (!combinedTS.containsKey(year)) {
                 combinedTS.put(year, ts.get(year));
             }
